@@ -2,6 +2,8 @@ import Vue from "vue";
 import App from "./App.vue";
 import VueAxios from "vue-axios";
 import VueCookies from "vue-cookies";
+import VModal from "vue-js-modal";
+Vue.use(VModal);
 Vue.use(VueCookies);
 import axios from "axios";
 

@@ -46,23 +46,7 @@
   
           // console.log(response);
           const recipes = response.data;
-          let recipesData = [];
-          for(const id of recipes){
-              const response = await this.axios.get(this.$root.store.server_domain + "/recipes/" + this.$route.params.recipeId, { withCredentials: true },)
-              let {
-              id,
-              title,
-              readyInMinutes,
-              image,
-              aggregateLikes,
-              vegan,
-              vegetarian,
-              glutenFree
-              } = response.data;
-              recipesData.push({id,title,readyInMinutes,image,aggregateLikes,vegan,vegetarian,glutenFree})
-          }
-          this.recipes = [];
-          this.recipes.push(...recipesData);
+          this.recipes.push(...recipes);
           // console.log(this.recipes);
         } catch (error) {
           console.log(error);
