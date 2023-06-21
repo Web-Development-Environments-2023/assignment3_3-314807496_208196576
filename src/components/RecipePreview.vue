@@ -4,7 +4,7 @@
     class="recipe-preview"
   >
     <div class="recipe-body">
-      <img v-if="image_load" :src="recipe.image" class="recipe-image" />
+      <img src="recipe.image" class="recipe-image" />
     </div>
     <div class="recipe-footer">
       <div :title="recipe.title" class="recipe-title">
@@ -14,21 +14,26 @@
         <li>{{ recipe.readyInMinutes }} minutes</li>
         <li>{{ recipe.aggregateLikes }} likes</li>
       </ul>
+      <b-button @click = AddToFavories>Add To Favorites</b-button>
     </div>
   </router-link>
 </template>
 
 <script>
 export default {
-  mounted() {
-    this.axios.get(this.recipe.image).then((i) => {
-      this.image_load = true;
-    });
-  },
   data() {
     return {
-      image_load: false
     };
+  },
+  methods:{
+    async AddToFavories(){
+      try{
+        const response = await this.axios.post(this.$root.store.server_domain + "/users/myRecipes",{recipeId:recipe.id},{withCredentials: true})
+      }
+      catch (error) {
+        console.log(error);
+      }
+  }
   },
   props: {
     recipe: {
