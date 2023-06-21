@@ -1,5 +1,6 @@
 <template>
-  <router-link
+  <div>
+    <router-link
     :to="{ name: 'recipe', params: { recipeId: recipe.id } }"
     class="recipe-preview"
   >
@@ -14,21 +15,29 @@
         <li>{{ recipe.readyInMinutes }} minutes</li>
         <li>{{ recipe.aggregateLikes }} likes</li>
       </ul>
-      <b-button @click = AddToFavories>Add To Favorites</b-button>
     </div>
   </router-link>
+  <b-button :disabled="isDisabled" :variant="variant" @click = AddToFavories>{{buttonText}}</b-button>
+  </div>
+  
 </template>
 
 <script>
 export default {
   data() {
     return {
+      isDisabled: false,
+      variant: 'primary',
+      buttonText: 'Click me'
     };
   },
   methods:{
     async AddToFavories(){
       try{
-        const response = await this.axios.post(this.$root.store.server_domain + "/users/myRecipes",{recipeId:recipe.id},{withCredentials: true})
+        this.isDisabled = true;
+        this.variant = 'success';
+        this.buttonText = 'Is favorite'
+        await this.axios.post(this.$root.store.server_domain + "/users/favorites",{recipeId:this.recipe.id},{withCredentials: true})
       }
       catch (error) {
         console.log(error);
