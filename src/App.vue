@@ -1,21 +1,21 @@
 <template>
   <div id="app">
     <div id="nav">
-      <router-link :to="{ name: 'main' }">Vue Recipes</router-link>|
-      <router-link :to="{ name: 'search' }">Search</router-link>|
-      <router-link :to="{ name: 'about' }">About</router-link>|
+      <router-link :background-color="indianred"  :to="{ name: 'main' }">Vue Recipes</router-link>
+      <router-link :background-color="indianred" :to="{ name: 'search' }">Search</router-link>
+      <router-link :background-color="indianred" :to="{ name: 'about' }">About</router-link>
       <span v-if="!$root.store.username">
         Guest:
-        <router-link :to="{ name: 'register' }">Register</router-link>|
-        <router-link :to="{ name: 'login' }">Login</router-link>|
+        <router-link :background-color="indianred" :to="{ name: 'register' }">Register</router-link>
+        <router-link :background-color="indianred" :to="{ name: 'login' }">Login</router-link>
       </span>
       <span v-else>
-        <b-dropdown text="Personal" id="dropdown-1" class="m-md-2">
+        <b-dropdown text="Personal" id="dropdown-1" class="m-2">
         <b-dropdown-item @click="goToPage('favoriteRecipes')">Favorite Recipes</b-dropdown-item>
         <b-dropdown-item @click="goToPage('myRecipes')">My Recipes</b-dropdown-item>
         <b-dropdown-item @click="goToPage('familyRecipes')">Family Recipes</b-dropdown-item>
         </b-dropdown>
-        <b-button @click = "showModal = true">Add Recipe</b-button>
+        <b-button class="m-2" @click = "showModal = !showModal">Add Recipe</b-button>
         <div>
         <b-modal v-if = "showModal" @close="showModal = false">
           <h3 slot = "header">Enter fields</h3>
@@ -60,8 +60,10 @@
             <b-button @click="submitForm">OK</b-button> 
           </div>
         </b-modal>
+        <div>
+        {{ $root.store.username }}: <button @click="Logout">Logout</button>
         </div>
-        {{ $root.store.username }}: <button @click="Logout">Logout</button>|
+        </div>
       </span>
     </div>
     <router-view />
@@ -96,6 +98,7 @@ export default {
       });
     },
     goToPage(option) {
+      this.showModal = false
       this.$router.push(`/${option}`);
     },
     handleFileUpload(event) {
@@ -130,14 +133,33 @@ export default {
 
 #nav {
   padding: 30px;
+  background-color: #20e919
 }
 
 #nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
+  float: left;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+} 
 
 #nav a.router-link-exact-active {
-  color: #42b983;
+  float: left;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
 }
+.topnav a:hover {
+  background-color: #ddd;
+  color: black;
+}
+.topnav a.active {
+  background-color: #04AA6D;
+  color: white;
+}
+
 </style>

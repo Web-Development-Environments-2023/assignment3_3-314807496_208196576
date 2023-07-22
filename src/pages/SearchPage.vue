@@ -32,14 +32,13 @@
     <div v-if="searchResult">
       <h3>Search Result</h3>
       <ul>
-        <li>ID: {{ searchResult.id }}</li>
-        <li>Title: {{ searchResult.title }}</li>
-        <li>Ready In Minutes: {{ searchResult.readyInMinutes }}</li>
-        <li>Image: {{ searchResult.image }}</li>
-        <li>Aggregate Likes: {{ searchResult.aggregateLikes }}</li>
-        <li>Vegan: {{ searchResult.vegan }}</li>
-        <li>Vegetarian: {{ searchResult.vegetarian }}</li>
-        <li>Gluten Free: {{ searchResult.glutenFree }}</li>
+        <li v-for="r in searchResult" :key="r.id">
+        <label>{{ "ID:" + r.id }} </label>
+        <br>
+        <label>{{ "title:" + r.title }} </label>
+        <br>
+        <img :src= "r.image" class="recipe-image" />
+        </li>
       </ul>
     </div>
   </div>

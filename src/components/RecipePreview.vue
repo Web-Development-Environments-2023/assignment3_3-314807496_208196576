@@ -5,7 +5,7 @@
     class="recipe-preview"
   >
     <div class="recipe-body">
-      <img src="recipe.image" class="recipe-image" />
+      <img :src= "recipe.image" class="recipe-image" />
     </div>
     <div class="recipe-footer">
       <div :title="recipe.title" class="recipe-title">
@@ -28,7 +28,7 @@ export default {
     return {
       isDisabled: false,
       variant: 'primary',
-      buttonText: 'Click me'
+      buttonText: 'Like'
     };
   },
   methods:{
