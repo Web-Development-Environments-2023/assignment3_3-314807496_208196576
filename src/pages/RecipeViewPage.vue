@@ -99,6 +99,13 @@ export default {
         image,
         title
       };
+      let lastView = []
+      if(localStorage.getItem("lastViewed").length != 0){
+        lastView = JSON.parse(localStorage.getItem("lastViewed"))
+      }
+      localStorage.removeItem("lastViewed")
+      let newViewed = lastView.unshift(_recipe)
+      localStorage.setItem("lastViewed",JSON.stringify(newViewed))
 
       this.recipe = _recipe;
     } catch (error) {
