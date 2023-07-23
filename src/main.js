@@ -78,6 +78,7 @@ const shared_data = {
   login(username) {
     this.lastviewd = []
     localStorage.setItem("username", username);
+    localStorage.setItem("lastViewed", "")
     this.username = username;
     console.log("login", this.username);
   },
@@ -85,6 +86,7 @@ const shared_data = {
     console.log("logout");
     this.lastviewd = []
     localStorage.removeItem("username");
+    //localStorage.removeItem("lastViewed")
     this.username = undefined;
   },
 };

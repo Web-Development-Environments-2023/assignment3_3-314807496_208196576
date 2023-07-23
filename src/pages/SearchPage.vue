@@ -33,11 +33,13 @@
       <h3>Search Result</h3>
       <ul>
         <li v-for="r in searchResult" :key="r.id">
-        <label>{{ "ID:" + r.id }} </label>
+        <router-link :to="{ name: 'recipe', params: { recipeId: r.id } }">
+          <label>{{ "ID:" + r.id }} </label>
         <br>
         <label>{{ "title:" + r.title }} </label>
         <br>
         <img :src= "r.image" class="recipe-image" />
+        </router-link>
         </li>
       </ul>
     </div>

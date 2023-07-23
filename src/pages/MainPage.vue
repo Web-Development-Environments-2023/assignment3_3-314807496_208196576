@@ -3,16 +3,16 @@
     <h1 class="title">Main Page</h1>
     <RecipePreviewList title="Randome Recipes" :isRandom="true" class="RandomRecipes center" />
     <router-link v-if="!$root.store.username" to="/login" tag="button">You need to Login to vue this</router-link>
-    <RecipePreviewList
+    <LastViewedPreviewList
       title="Last Viewed Recipes"
       :isRandom="false"
       :class="{
-        RandomRecipes: true,
+        RandomRecipes: false,
         blur: !$root.store.username,
         center: true
       }"
       disabled
-    ></RecipePreviewList>
+    ></LastViewedPreviewList>
     <!-- <div
       style="position: absolute;top: 70%;left: 50%;transform: translate(-50%, -50%);"
     >
@@ -23,9 +23,11 @@
 
 <script>
 import RecipePreviewList from "../components/RecipePreviewList";
+import LastViewedPreviewList from "../components/LastViewed";
 export default {
   components: {
-    RecipePreviewList
+    RecipePreviewList,
+    LastViewedPreviewList
   }
 };
 </script>
