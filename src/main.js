@@ -1,6 +1,10 @@
 import Vue from "vue";
 import App from "./App.vue";
 import VueAxios from "vue-axios";
+import VueCookies from "vue-cookies";
+import VModal from "vue-js-modal";
+Vue.use(VModal);
+Vue.use(VueCookies);
 import axios from "axios";
 
 import routes from "./routes";
@@ -67,15 +71,22 @@ Vue.use(VueAxios, axios);
 Vue.config.productionTip = false;
 
 const shared_data = {
+  server_domain: "https://liron-ofir.cs.bgu.ac.il:443",
   username: localStorage.username,
+  favoriteRecipes:[],
+  lastviewd:[],
   login(username) {
+    this.lastviewd = []
     localStorage.setItem("username", username);
+    localStorage.setItem("lastViewed", "")
     this.username = username;
     console.log("login", this.username);
   },
   logout() {
     console.log("logout");
+    this.lastviewd = []
     localStorage.removeItem("username");
+    //localStorage.removeItem("lastViewed")
     this.username = undefined;
   },
 };

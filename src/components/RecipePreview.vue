@@ -1,10 +1,11 @@
 <template>
-  <router-link
+  <div>
+    <router-link
     :to="{ name: 'recipe', params: { recipeId: recipe.id } }"
     class="recipe-preview"
   >
     <div class="recipe-body">
-      <img v-if="image_load" :src="recipe.image" class="recipe-image" />
+      <img :src= "recipe.image" class="recipe-image" />
     </div>
     <div class="recipe-footer">
       <div :title="recipe.title" class="recipe-title">
@@ -16,19 +17,43 @@
       </ul>
     </div>
   </router-link>
+  <b-button :disabled="isDisabled" :variant="variant" @click = AddToFavories>{{buttonText}}</b-button>
+  </div>
+  
 </template>
 
 <script>
 export default {
-  mounted() {
-    this.axios.get(this.recipe.image).then((i) => {
-      this.image_load = true;
-    });
-  },
   data() {
     return {
-      image_load: false
+      isDisabled: false,
+      variant: 'primary',
+      buttonText: 'Like'
     };
+  },
+  mounted(){
+      this.checkIfFavorite()
+  },
+  methods:{
+    async AddToFavories(){
+      try{
+        this.isDisabled = true;
+        this.variant = 'success';
+        this.buttonText = 'Is favorite'
+        await this.axios.post(this.$root.store.server_domain + "/users/favorites",{recipeId:this.recipe.id},{withCredentials: true})
+      }
+      catch (error) {
+        console.log(error);
+      }
+  },
+  async checkIfFavorite(){
+    
+    if(this.$root.store.favoriteRecipes.some(r => r.id===this.recipe.id)){
+      this.isDisabled = true
+      this.variant = 'success';
+      this.buttonText = 'Is favorite'
+    }
+  }
   },
   props: {
     recipe: {

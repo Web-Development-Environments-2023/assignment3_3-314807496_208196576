@@ -4,11 +4,11 @@
       {{ title }}:
       <slot></slot>
     </h3>
-    <b-row>
-      <b-col v-for="r in recipes" :key="r.id">
+    <ul>
+      <li v-for="r in recipes" :key="r.id">
         <RecipePreview class="recipePreview" :recipe="r" />
-      </b-col>
-    </b-row>
+      </li>
+    </ul>
   </b-container>
 </template>
 
@@ -23,10 +23,6 @@ export default {
     title: {
       type: String,
       required: true
-    },
-    isRandom:{
-      type: Boolean,
-      required: true
     }
   },
   data() {
@@ -39,30 +35,21 @@ export default {
   },
   methods: {
     async updateRecipes() {
-      if(this.isRandom){
-        try {
+      try {
         console.log("server_domain " + this.$root.store.server_domain)
-        this.axios.defaults.withCredentials = true;
         const response = await this.axios.get(
-          this.$root.store.server_domain + "/recipes/recipesRandom",
-          {withCredentials: true}
+          this.$root.store.server_domain + "/users/favorites",
+          { withCredentials: true }
           // "https://test-for-3-2.herokuapp.com/recipes/random"
         );
 
         // console.log(response);
         const recipes = response.data;
-        this.recipes = [];
         this.recipes.push(...recipes);
         // console.log(this.recipes);
       } catch (error) {
         console.log(error);
       }
-      }
-      else{
-        this.recipes = [];
-        this.recipes.push(...this.$root.store.lastviewd);
-      }
-      
     }
   }
 };
