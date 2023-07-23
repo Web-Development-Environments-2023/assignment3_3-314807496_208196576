@@ -71,15 +71,19 @@ Vue.use(VueAxios, axios);
 Vue.config.productionTip = false;
 
 const shared_data = {
-  server_domain: "http://localhost:80",
+  server_domain: "https://liron-ofir.cs.bgu.ac.il:443",
   username: localStorage.username,
+  favoriteRecipes:[],
+  lastviewd:[],
   login(username) {
+    this.lastviewd = []
     localStorage.setItem("username", username);
     this.username = username;
     console.log("login", this.username);
   },
   logout() {
     console.log("logout");
+    this.lastviewd = []
     localStorage.removeItem("username");
     this.username = undefined;
   },

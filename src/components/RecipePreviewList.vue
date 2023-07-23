@@ -23,6 +23,10 @@ export default {
     title: {
       type: String,
       required: true
+    },
+    isRandom:{
+      type: Boolean,
+      required: true
     }
   },
   data() {
@@ -35,7 +39,8 @@ export default {
   },
   methods: {
     async updateRecipes() {
-      try {
+      if(this.isRandom){
+        try {
         console.log("server_domain " + this.$root.store.server_domain)
         this.axios.defaults.withCredentials = true;
         const response = await this.axios.get(
@@ -52,6 +57,12 @@ export default {
       } catch (error) {
         console.log(error);
       }
+      }
+      else{
+        this.recipes = [];
+        this.recipes.push(...this.$root.store.lastviewd);
+      }
+      
     }
   }
 };

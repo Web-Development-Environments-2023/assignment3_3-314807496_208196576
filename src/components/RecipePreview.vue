@@ -31,6 +31,9 @@ export default {
       buttonText: 'Like'
     };
   },
+  mounted(){
+      this.checkIfFavorite()
+  },
   methods:{
     async AddToFavories(){
       try{
@@ -42,6 +45,14 @@ export default {
       catch (error) {
         console.log(error);
       }
+  },
+  async checkIfFavorite(){
+    
+    if(this.$root.store.favoriteRecipes.some(r => r.id===this.recipe.id)){
+      this.isDisabled = true
+      this.variant = 'success';
+      this.buttonText = 'Is favorite'
+    }
   }
   },
   props: {

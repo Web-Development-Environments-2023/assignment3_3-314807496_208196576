@@ -99,6 +99,7 @@ export default {
         image,
         title
       };
+      this.$root.store.lastviewd.unshift(_recipe)
 
       this.recipe = _recipe;
     } catch (error) {
